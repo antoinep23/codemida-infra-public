@@ -5,7 +5,7 @@ The application was initially deployed across multiple platforms (Vercel and Rai
 
 ---
 
-## 🚀 Project Overview
+## Project Overview
 
 The platform enables restaurants to:
 
@@ -16,7 +16,7 @@ The platform enables restaurants to:
 
 ---
 
-## 🏗️ Infrastructure Overview
+## Infrastructure Overview
 
 The Terraform setup provisions the complete AWS infrastructure for a production-grade SaaS deployment:
 
