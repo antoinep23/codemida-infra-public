@@ -38,6 +38,15 @@ The Terraform setup provisions the complete AWS infrastructure for a production-
 
 ---
 
+## Architecture Diagram
+
+![Codemida Infrastructure](./docs/codemida_infra.png)
+
+_For simplicity, the diagram shows a single public subnet.  
+In production, the infrastructure is deployed across multiple Availability Zones (multi-AZ) using Terraform, ensuring high availability and fault tolerance._
+
+---
+
 ## ⚙️ Modularity and Scalability
 
 The Terraform configuration is **modular**, allowing:
