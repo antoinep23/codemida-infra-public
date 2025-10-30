@@ -36,6 +36,13 @@ The Terraform setup provisions the complete AWS infrastructure for a production-
 - **MongoDB Atlas** – Managed database service used for cost and convenience reasons.  
   Although MongoDB Atlas currently hosts the production database, a **future migration to Amazon DocumentDB** is considered to centralize infrastructure and gain finer control over scalability and cost optimization.
 
+**Note:**  
+The infrastructure is designed to be **multi-AZ** — Terraform dynamically provisions multiple public subnets across different Availability Zones.
+
+**Design Choice:**  
+While ECS tasks could be deployed in private subnets with a NAT Gateway or VPC endpoints for tighter network isolation, this setup currently uses **public subnets with an Internet Gateway** for simplicity and cost efficiency.  
+Inbound access to ECS tasks remains protected through **strict security groups** and the **Application Load Balancer**, ensuring that no container is directly exposed to the internet.
+
 ---
 
 ## Architecture Diagram
