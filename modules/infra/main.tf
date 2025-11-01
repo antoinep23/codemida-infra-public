@@ -130,7 +130,7 @@ resource "aws_iam_policy" "ecs_secrets_policy" {
       {
         Effect   = "Allow"
         Action   = ["secretsmanager:GetSecretValue"]
-        Resource = "*"
+        Resource = "codemida/*"
       }
     ]
   })
