@@ -54,7 +54,7 @@ In production, the infrastructure is deployed across multiple Availability Zones
 
 ---
 
-## ⚙️ Modularity and Scalability
+## Modularity and Scalability
 
 The Terraform configuration is **modular**, allowing:
 
@@ -66,7 +66,7 @@ Auto-scaling for ECS services is fully configurable, allowing the platform to ad
 
 ---
 
-## 🔒 Secrets and Sensitive Data
+## Secrets and Sensitive Data
 
 A **`secrets.tfvars`** file (excluded from the repository) must be created locally to define the sensitive variables required for provisioning **AWS Secrets Manager** entries.  
 This file typically contains application secrets, database URIs, and API keys that need to be stored securely.
@@ -82,7 +82,7 @@ This approach provides a clean separation between **infrastructure as code** and
 
 ---
 
-## 🔐 HTTPS and TLS Certificates
+## HTTPS and TLS Certificates
 
 For the **staging** environment, a **self-signed TLS certificate** is created to enable HTTPS without requiring a real domain certificate.  
 To use a valid domain certificate in production:
@@ -94,7 +94,7 @@ This simple change enables HTTPS using your custom domain in production.
 
 ---
 
-## 🧭 Why AWS?
+## Why AWS?
 
 The migration from a multi-cloud setup (Vercel + Railway + MongoDB Atlas) to AWS offers several advantages:
 
@@ -118,7 +118,7 @@ Decisions were made to optimize performance while keeping infrastructure costs a
 
 ---
 
-## 🧩 Tech Stack
+## Tech Stack
 
 | Layer              | Technology          | Purpose                                |
 | ------------------ | ------------------- | -------------------------------------- |
@@ -134,7 +134,7 @@ Decisions were made to optimize performance while keeping infrastructure costs a
 
 ---
 
-## 📦 Deployment
+## Deployment
 
 To provision the infrastructure:
 
