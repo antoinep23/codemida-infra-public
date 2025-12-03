@@ -78,11 +78,13 @@ helm upgrade codemida-release .
 
 ## Cleanup
 
-To delete the EKS cluster and all associated resources, run:
+To delete the EKS cluster, run:
 
 ```bash
 eksctl delete cluster --name codemida-cluster --region eu-west-3
 ```
+
+You can also have to delete the ressources created by eksctl such as the NAT Gateway, ENI, elastic IP, VPC... Ensure to check the successful deletion of those from the AWS Management Console to avoid unexpected costs.
 
 ---
 
