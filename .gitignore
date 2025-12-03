@@ -45,3 +45,4 @@ terraform.rc
 
 # Others
 .DS_Store
+.prettierignore

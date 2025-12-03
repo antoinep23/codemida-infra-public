@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '{{.Values.appName}}-{{.Values.api.function}}'
+  namespace: {{.Values.namespace}}
+  labels:
+    app: '{{.Values.appName}}-{{.Values.api.function}}'
+spec:
+  selector:
+    matchLabels:
+      app: '{{.Values.appName}}-{{.Values.api.function}}'
+  template:
+    metadata:
+      namespace: {{.Values.namespace}}
+      labels:
+        app: '{{.Values.appName}}-{{.Values.api.function}}'
+    spec:
+      containers:
+        - name: '{{.Values.appName}}-{{.Values.api.function}}'
+          image: {{.Values.api.imageUrl}}
+          ports:
+            - containerPort: {{.Values.api.appPort}}
+          resources:
+            requests:
+              cpu: {{.Values.api.resources.requests.cpu}}
+              memory: {{.Values.api.resources.requests.memory}}
+            limits:
+              cpu: {{.Values.api.resources.limits.cpu}}
+              memory: {{.Values.api.resources.limits.memory}}
+          env:
+            - name: DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: database
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: database_password
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: jwt_secret
+            - name: JWT_EXPIRES_IN
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: jwt_expires_in
+            - name: JWT_COOKIE_EXPIRES_IN
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: jwt_cookie_expires_in
+            - name: AWS_BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: aws_bucket_name
+            - name: AWS_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: aws_region
+            - name: EMAIL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: email_host
+            - name: EMAIL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: email_port
+            - name: EMAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: email_username
+            - name: EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: email_password
+            - name: EMAIL_FROM
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: email_from
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: stripe_secret_key
+            - name: STRIPE_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.secret}}
+                  key: stripe_webhook_secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: '{{.Values.appName}}-{{.Values.api.function}}-service'
+  namespace: {{.Values.namespace}}
+spec:
+  selector:
+    app: '{{.Values.appName}}-{{.Values.api.function}}'
+  ports:
+    - protocol: TCP
+      port: {{.Values.api.servicePort}}
+      targetPort: {{.Values.api.appPort}}

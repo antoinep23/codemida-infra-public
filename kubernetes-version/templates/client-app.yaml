@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '{{.Values.appName}}-{{.Values.client.function}}'
+  labels:
+    app: '{{.Values.appName}}-{{.Values.client.function}}'
+spec:
+  selector:
+    matchLabels:
+      app: '{{.Values.appName}}-{{.Values.client.function}}'
+  template:
+    metadata:
+      labels:
+        app: '{{.Values.appName}}-{{.Values.client.function}}'
+    spec:
+      containers:
+        - name: '{{.Values.appName}}-{{.Values.client.function}}'
+          image: {{.Values.client.imageUrl}}
+          ports:
+            - containerPort: {{.Values.client.appPort}}
+          resources:
+            requests:
+              cpu: {{.Values.client.resources.requests.cpu}}
+              memory: {{.Values.client.resources.requests.memory}}
+            limits:
+              cpu: {{.Values.client.resources.limits.cpu}}
+              memory: {{.Values.client.resources.limits.memory}}
+          env:
+            - name: CUSTOM_NODE_ENV
+              value: {{.Values.environment}}
+            - name: DNS_NAME
+              value: {{.Values.hostName}}
+            - name: NEXT_PUBLIC_DEV_SERVER_URL
+              value: http://dev.codemida.com
+            - name: NEXT_PUBLIC_PROD_SERVER_URL
+              value: {{.Values.hostName}}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: '{{.Values.appName}}-{{.Values.client.function}}-service'
+spec:
+  selector:
+    app: '{{.Values.appName}}-{{.Values.client.function}}'
+  ports:
+    - protocol: TCP
+      port: {{.Values.client.servicePort}}
+      targetPort: {{.Values.client.appPort}}
